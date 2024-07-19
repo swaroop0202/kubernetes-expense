@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: frontend
+  name: nginx-config
   namespace: expense
 data:
   nginx.conf: |
@@ -94,7 +94,6 @@ data:
 
   }  
         
-
 ---
 
 apiVersion: apps/v1
@@ -132,12 +131,13 @@ spec:
         - name: nginx-config
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
+          readOnly: true
        volumes:
         - name: nginx-config
         configMap:
-          name: frontend 
+          name: nginx-config
 
-
+---          
 apiVersion: v1
 kind: Service
 metadata:
