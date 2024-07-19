@@ -85,7 +85,7 @@ data:
       }
 
       location /api/ {
-          proxy_pass http://backend:8080/;
+          proxy_pass http://frontend:8080/;
       }
 
     
@@ -96,6 +96,47 @@ data:
         
 
 ---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: expense
+  labels:
+    component: frontend
+    project: expense
+    tier: web
+    environment: dev
+spec:
+  # modify replicas according to your case
+  replicas: 2
+  selector:
+    matchLabels:
+      component: frontend
+      project: expense
+      tier: web
+      environment: dev
+  # below is the pod definition
+  template:
+    metadata:
+      labels:
+         component: frontend
+         project: expense
+         tier: web
+         environment: dev
+    spec:
+      containers:
+      - name: frontend
+        image: swaroop02/frontend:1.0
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+       volumes:
+        - name: nginx-config
+        configMap:
+          name: frontend 
+
 
 apiVersion: v1
 kind: Service
