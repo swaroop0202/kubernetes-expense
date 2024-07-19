@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    component: mysql
+    project: expense
+    tier: web
+    environment: dev
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      component: mysql
+      project: expense
+      tier: web
+      environment: dev
+  # below is the pod definition
+  template:
+    metadata:
+      labels:
+         component: mysql
+         component: mysql
+         project: expense
+         tier: web
+         environment: dev
+    spec:
+      containers:
+      - name: mysql
+        image: swaroop02/mysql:1.0
+        
+          
