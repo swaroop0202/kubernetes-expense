@@ -67,7 +67,7 @@ data:
         root   /usr/share/nginx/html;
         index  index.html index.htm;
         ssi    on;
-    }
+       }
 
     location /images/ {
         expires 5s;
@@ -90,7 +90,7 @@ data:
 
    
 
-   }
+  }
 
   }
 
